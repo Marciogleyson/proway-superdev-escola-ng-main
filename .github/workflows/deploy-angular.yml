@@ -20,7 +20,9 @@ jobs:
         with:
           node-version: 22
       - name: Instalar as dependencias
-        run: npm ci    
+        run: npm ci   
+      - name: Instalar Angular CLI
+        run: npm install --global @ angular/cli
 
   construir:
     runs-on: ubuntu-24.04
