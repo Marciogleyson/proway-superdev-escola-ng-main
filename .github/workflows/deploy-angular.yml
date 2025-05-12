@@ -14,8 +14,7 @@ jobs:
         ref: main # ref é um input que diz qual será o nome da brach que utilizamos
       - name: "Configurar o git na pipeline"
         run: |
-          echo "Configurando o git na pipeline"
-          echo "Configurando o git com sucesso" 
+          ls -la
       - name: "Configurando o user no git"
         run: |
           echo "Configurando o git user.name"    
