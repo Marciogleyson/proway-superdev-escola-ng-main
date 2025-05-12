@@ -14,11 +14,11 @@ jobs:
           ref: main # ref é um input que diz qual será o nome da brach que utilizamos
       - name: "Lista arquivo e pasta"
         run: |
-          ls -la
-      - name: "Configurando o user no git"
-        run: |
-          echo "Configurando o git user.name"    
-         
+          ls -la    
+      - name: "Instalar Node.JS"
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
 
   construir:
     runs-on: ubuntu-24.04
