@@ -46,3 +46,14 @@ jobs:
           path: ./dist    
       - name: "Instalar as dependencias"      
         run: echo "Instalando as dependencias"  
+      - name: "Configurar Git"
+        run: |
+         git config -- global user.name "Marcio Ramos"
+         git config -- global user.email "marcio.gleyson2026@gmail.com"
+         npm install --global angular-cli-ghpages
+      - name: Deploy to GitHub Pages  
+        run: npx angular-cli-ghpages --dir=dist/proway-superdev-escola-ng-main/browser --no-silent
+        env:
+          cli: true
+          GH_TOKEN: ${{ secrets.TOKEN_TO_DEPLOY }}
+
