@@ -10,7 +10,12 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-cursos-lista',
-  imports: [TableModule, CommonModule, ButtonModule, ToastModule, ConfirmDialogModule],
+  imports: [TableModule,
+     CommonModule,
+     ButtonModule,
+     ToastModule,
+     ConfirmDialogModule,
+    ],
   templateUrl: './cursos-lista.component.html',
   styleUrl: './cursos-lista.component.css',
   providers: [MessageService, ConfirmationService]

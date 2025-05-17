@@ -1,6 +1,8 @@
-<p-button label="Home" (click)="redirecionarHome()" />
-<p-button label="Cursos" (click)="redirecionarCursos()" />
+<header>
+    <app-navbar></app-navbar>
+</header>
 
-<h1>Bem Vindo ao Sitema Escola-DEV</h1>
+<main>
+    <router-outlet/>
+</main>
 
-<router-outlet/>
