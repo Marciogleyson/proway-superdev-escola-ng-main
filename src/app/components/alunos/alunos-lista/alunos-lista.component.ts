@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Aluno } from '../../../models/aluno';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -15,6 +15,7 @@ import { AlunoCadastro } from '../../../models/aluno-cadastro';
 import { FormsModule } from '@angular/forms';
 import { InputMaskModule } from 'primeng/inputmask';
 import { DatePicker } from 'primeng/datepicker';
+import { AlunoService } from '../../../services/aluno.service';
 
 
 @Component({
@@ -38,21 +39,25 @@ import { DatePicker } from 'primeng/datepicker';
      FormatarCpfPipe,
      MessageService,
      ConfirmationService,
+     AlunoService,
      
     ]
 })
-export class AlunosListaComponent {
+export class AlunosListaComponent implements OnInit {
   alunos: Aluno [];
   alunoCadastro: AlunoCadastro; // objeto que será utilizado na dialog(modal) para cadastra
   visible: boolean = false;
+  carregandoAlunos: boolean = false;
   dataMinima: Date;
   dataMaxima: Date;
 
-  constructor(private router: Router, private confirmationService: ConfirmationService, private messageService: MessageService){
-    this.alunos = [
-      new Aluno("Matheus", "da Silva ", new Date(200, 4, 5), 1, "123.456.789-10"),
-      new Aluno("Maria" , "da Silva ", new Date(200, 4, 5), 1, "12245678410")
-    ]
+  constructor(
+    private router: Router,
+     private confirmationService: ConfirmationService,
+      private messageService: MessageService,
+      private alunoService: AlunoService,
+    ){
+    this.alunos = [ ]
 
     this.alunoCadastro = new AlunoCadastro();
 
@@ -60,6 +65,14 @@ export class AlunosListaComponent {
 
     this.dataMinima = new Date(1900, 0, 1);
     this.dataMaxima = new Date(dataHoraAgora.getFullYear(), dataHoraAgora.getMonth(), dataHoraAgora.getDate())
+  }
+
+  ngOnInit(): void {
+    // Fazer a requisição para o back end
+    this.alunoService.obterTodos().subscribe({
+      next: alunos => this.alunos = alunos,
+      error: erro => console.log("Ocorreu um eros ao carregar a lista de alunos:" + erro)
+    })
   }
 
   
