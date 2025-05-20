@@ -21,4 +21,13 @@ export class AlunoService {
    obterTodos(): Observable<Array<Aluno>>{
     return this.http.get<Array<Aluno>>(this.urlApi);
   }
+
+   apagar(id: number): Observable<any>{
+    return this.http.delete<any>(`${this.urlApi}/${id}`);
+    // return this.http.delete<any>(this.urlApi + "/" + id);
+  }
+
+  alterar(id: number, aluno: AlunoCadastro): Observable<any>{
+    return this.http.put<any>(`${this.urlApi}/${id}`, aluno);
+  }
 }
