@@ -30,7 +30,7 @@ showGridlines stripedRows
 
         <td>
             <p-button label="Editar"  severity="warn" (click)="abrirModalEditar(aluno)" icon="pi pi-pencil" class="mr-2"/>
-            <p-button label="Apagar" outlined="true" (click)="confirm1($event, aluno.id)" severity="danger" icon="pi pi-trash"/>
+            <p-button label="Apagar" outlined="true" (click)="confirmarParaApagar($event, aluno.id)" severity="danger" icon="pi pi-trash"/>
         </td>
     </tr>
 </ng-template>

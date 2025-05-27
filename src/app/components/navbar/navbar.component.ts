@@ -15,7 +15,8 @@ import { Ripple } from 'primeng/ripple';
   selector: 'app-navbar',
   imports: [Menubar, BadgeModule, AvatarModule, InputTextModule, Ripple, CommonModule],
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+  styleUrl: './navbar.component.css',
+  standalone: true
   
   
 })

@@ -1,0 +1,26 @@
+git clone
+py -m venv env
+env\Scripts\activate
+pip install poetry
+poetry install
+
+mudar versao no arquivo pyproject.toml - poetry lock para copilar depois de 
+
+Pycharm => Open Project
+
+API Restful => GET, POST, DELETE, PUT
+GET /api/produtos => lista de produtos
+GET /api/produtos/<id> => produto
+POST /api/produtos => cadastrar produto
+PUT /api/produtos/<id> => alterar produto
+DELETE /api/produtos/<id> => apagar o produto
+
+localhost:8000/api/produtos => local de desenvolvimento
+dev.marcioramos.com.br/api/produtos = Ambiente Desenvolvimento
+stg.marcioramos.com.br/api/protudos = Ambiente Homologação
+www.marcioramos.com.br/api/protudos => Ambiente Produção
+poetry lock
+
+tranforma o formato
+poetry lock
+poetry add dataclasses-json
