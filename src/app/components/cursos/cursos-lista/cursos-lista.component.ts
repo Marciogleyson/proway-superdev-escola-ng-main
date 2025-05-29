@@ -50,6 +50,11 @@ export class CursosListaComponent implements OnInit {
   redirecionarPaginaCadastro(){
     this.router.navigate(["/cursos/cadastro"])
   }
+
+  redirecionarEditar(idCurso: number){
+    this.router.navigate(["/cursos/editar/" + idCurso])
+  }
+
   confirmarParaApagar(event: Event, id: number) {
     this.confirmationService.confirm({
         target: event.target as EventTarget,

@@ -1,5 +1,4 @@
 <div class="flex flex-column gap-4">
-
     <p-floatlabel>
         <input pInputText id="campo-nome" [(ngModel)]="curso.nome" autocomplete="off" />
         <label for="campo-nome">Nome</label>
@@ -11,6 +10,5 @@
     </p-floatlabel>
 
 
-    <p-button label="Cadastra" (click)="cadastrar()"></p-button>
-
+    <p-button label="editar" icon="pi pi-save" (click)="editar()"></p-button>
 </div>
