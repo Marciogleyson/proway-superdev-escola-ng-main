@@ -1,6 +1,6 @@
 git clone
 py -m venv env
-env\Scripts\activate
+source env/bin/activate -> mac    env\Scripts\activate
 pip install poetry
 poetry install
 
