@@ -1,59 +1,53 @@
 name: "Deploy Angular PROD"
-
 on:
-    push: 
-      branches:
-        - main 
-  #  workflow_dispatch:
+  push:
+    branches:
+      - main
+#  workflow_dispatch:
 
-jobs: 
+jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Fazer o checkout do código
-      # essa é um action que permite ter acesso ao código durante a execução do job
+        # essa é uma action que permite ter acesso ao código durante a execução do
         uses: actions/checkout@v4
         with:
-          ref: main # ref é um input que diz qual será o nome da brach que utilizamos
-       
+          ref: main # ref é um input que diz qual será o nome da branch que utilizaremos
       - name: "Instalar Node.JS"
         uses: actions/setup-node@v4
         with:
           node-version: 22
       - name: Instalar as dependencias
-        run: npm ci   
+        run: npm ci
       - name: Instalar Angular CLI
         run: npm install --global @angular/cli
-      - name: Build - Gerar o font de produção
-        run: ng build --configuration production --base-href=/proway-superdev-escola-ng-main/
+      - name: Build - Gerar o fonte de produção
+        run: ng build --configuration production --base-href=/proway-superdev-escola-ng/
       - name: Salvar a pasta dist como artefato
-        uses: actions/upload-artifact@v4  
+        uses: actions/upload-artifact@v4
         with:
           name: build-artifact
           path: dist/
-
   deploy:
     runs-on: ubuntu-24.04
     needs: build
     steps:
       - name: Fazer o checkout do código
-      # essa é um action que permite ter acesso ao código durante a execução do job
         uses: actions/checkout@v4
         with:
-          ref: main # ref é um input que diz qual será o nome da brach que utilizamos
-      - name: Downloads do artefato
+          ref: main
+      - name: Download do artefato
         uses: actions/download-artifact@v4
         with:
           name: build-artifact
-          path: ./dist    
-      - name: "Instalar as dependencias"      
-        run: echo "Instalando as dependencias"  
+          path: ./dist
       - name: "Configurar Git"
         run: |
-         git config --global user.name "Marcio Ramos"
-         git config --global user.email "marcio.gleyson2026@gmail.com"
-         npm install --global angular-cli-ghpages
-      - name: Deploy to GitHub Pages  
+          git config --global user.name "Larissa Schwab"
+          git config --global user.email "larissa.schwab@yahoo.com"
+          npm install --global angular-cli-ghpages
+      - name: Deploy to GitHub Pages
         run: npx angular-cli-ghpages --dir=dist/escola-ng/browser --no-silent
         env:
           cli: true

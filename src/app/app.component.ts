@@ -12,11 +12,11 @@ import { NavbarComponent } from "./components/navbar/navbar.component";
 export class AppComponent {
   title = 'escola-ng';
 
-  constructor(private router: Router) { }
-
-  redirecionarCursos() {
-    // carregando/navegando para a rota /cursos
+  constructor(private router:Router){ }
+  redirecionarCursos(){
+    // carregando/navegando
     this.router.navigate(["/cursos"])
+
   }
 
   redirecionarHome(){

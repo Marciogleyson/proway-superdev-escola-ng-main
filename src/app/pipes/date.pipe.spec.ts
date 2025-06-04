@@ -1,4 +1,4 @@
-import { DataHoraCustomizadaPipe } from './data-hora-customizada';
+import { DataHoraCustomizadaPipe } from './data-hora-customizada.pipe';
 
 describe('DataHoraCustomizadaPipe', () => {
   it('create an instance', () => {

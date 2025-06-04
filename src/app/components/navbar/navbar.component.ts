@@ -8,41 +8,40 @@ import { InputTextModule } from 'primeng/inputtext';
 import { Menubar } from 'primeng/menubar';
 import { Ripple } from 'primeng/ripple';
 
-
-
-
 @Component({
   selector: 'app-navbar',
   imports: [Menubar, BadgeModule, AvatarModule, InputTextModule, Ripple, CommonModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
-  standalone: true
-  
-  
 })
 export class NavbarComponent {
-    items: MenuItem[];
+  items: MenuItem[];
 
-    constructor(private router: Router){
-      this.items = [
+  constructor(private router: Router){
+    this.items = [
       {
         label: 'Home',
         icon: 'pi pi-home',
-        command: () => this.navegar("/")
+        command: () => this.navegar("/")     
       },
       {
         label: 'Cursos',
         icon: 'pi pi-graduation-cap',
-        command: () => this.navegar("/cursos")
+        command: () => this.navegar("/cursos") 
       },
       {
         label: 'Alunos',
-        icon: 'pi pi-graduation-cap',
-        command: () => this.navegar("/alunos")
+        icon: 'pi pi-user',
+        command: () => this.navegar("/alunos") 
       },
-      ]
-    }
+      {
+        label: 'Formação',
+        icon: 'pi pi-user',
+        command: () => this.navegar("/formacao")
+      }
+    ]
+  }
   private navegar(caminho: string){
-    this.router.navigate([caminho]);
-  }  
+    this.router.navigate([caminho])
+  }
 }

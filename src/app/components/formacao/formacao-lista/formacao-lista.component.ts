@@ -1,54 +1,54 @@
 import { Component, OnInit } from '@angular/core';
 import { TableModule } from 'primeng/table';
-import { Curso } from '../../../models/curso';
+import { Formacao } from '../../../models/formacao';
 import { ButtonModule } from 'primeng/button';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { CursoService } from '../../../services/curso.service';
+import { FormacaoService } from '../../../services/formacao.service';
 
 @Component({
-  selector: 'app-cursos-lista',
+  selector: 'app-formacao-lista',
   imports: [TableModule, CommonModule, ButtonModule, ToastModule, ConfirmDialogModule],
-  templateUrl: './cursos-lista.component.html',
-  styleUrl: './cursos-lista.component.css',
+  templateUrl: './formacao-lista.component.html',
+  styleUrl: './formacao-lista.component.css',
   providers: [MessageService, ConfirmationService]
 })
-export class CursosListaComponent implements OnInit {
-  cursos: Array<Curso>;
-  carregandoCursos?: boolean;
+export class FormacaoListaComponent implements OnInit {
+  formacao: Array<Formacao>;
+  carregandoFormacoes?: boolean;
 
   constructor(
     private router: Router,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
-    private cursoService: CursoService,
+    private formacaoService: FormacaoService,
   ) {
-    this.cursos = []
+    this.formacao = []
   }
   ngOnInit(): void {
-    this.carregarCursos();
+    this.carregarFormacoes();
   }
 
-  private carregarCursos() {
-    this.carregandoCursos = true;
-    this.cursoService.obterTodos().subscribe({
-      next: cursos => this.cursos = cursos,
-      error: erro => console.log("Ocorreu um erro ao carregar a lista de cursos:" + erro),
-      complete: () => this.carregandoCursos = false
-    });
+  private carregarFormacoes() {
+    this.carregandoFormacoes = true;
+    this.formacaoService.obterTodos().subscribe({
+      next: formacoes => this.formacao = formacoes,
+      error: erro => console.log("Ocorreu um erro ao carregar a lista de formações:" + erro),
+      complete:() => this.carregandoFormacoes = false
+    });    
   }
 
   redirecionarPaginaCadastro() {
-    this.router.navigate(["/cursos/cadastro"])
+    this.router.navigate(["/formacao/cadastro"])
   }
 
-  redirecionarEditar(idCurso: number) {
-    this.router.navigate(["/cursos/editar/" + idCurso])
+  redirecionarEditar(idFormacao: number) {
+    this.router.navigate(["/formacao/editar/" + idFormacao])
   }
-  
+
   confirmarParaApagar(event: Event, id: number) {
     this.confirmationService.confirm({
       target: event.target as EventTarget,
@@ -71,7 +71,7 @@ export class CursosListaComponent implements OnInit {
   }
 
   private apagar(id: number) {
-    this.cursoService.apagar(id).subscribe({
+    this.formacaoService.apagar(id).subscribe({
       next: () => this.apresentarMensagemApagado(),
       error: erro => console.log(`Ocorreu um erro ao apagar o curso: ${erro}`),
     })
@@ -81,8 +81,8 @@ export class CursosListaComponent implements OnInit {
     this.messageService.add({
       severity: 'success',
       summary: 'Sucesso',
-      detail: 'Curso removido com sucesso',
+      detail: 'Formação removida com sucesso',
     });
-    this.carregarCursos
+    this.carregarFormacoes
   }
 }

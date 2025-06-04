@@ -13,7 +13,7 @@ import { Curso } from '../../../models/curso';
 
 @Component({
   selector: 'app-curso-editar',
-  imports: [
+  imports: [ 
     FormsModule,
     InputTextModule,
     FloatLabelModule,
@@ -26,8 +26,9 @@ import { Curso } from '../../../models/curso';
   styleUrl: './curso-editar.component.css'
 })
 export class CursoEditarComponent {
-  curso: CursoEditar;
+curso: CursoEditar;
   idEditar: number;
+
   constructor(
     private router: Router,
     private cursoService: CursoService,
@@ -37,28 +38,28 @@ export class CursoEditarComponent {
     this.curso = new CursoEditar();
     this.idEditar = parseInt(this.activatedRoute.snapshot.paramMap.get("id")!.toString());
   }
-  
+
   ngOnInit(){
-    this.cursoService.obterPorId(this.idEditar).subscribe({
+    this.cursoService.obterporId(this.idEditar).subscribe({
       next: curso => this.preencherCamposParaEditar(curso),
-      error: erro => console.log("Ocorreu ao carregar os dados do curso:" + erro),
-    })
+      error: erro => console.log("Ocorreu ao carregar os dados do curso" + erro),
+    });
   }
 
   private preencherCamposParaEditar(curso: Curso){
     this.curso.nome = curso.nome;
     this.curso.sigla = curso.sigla;
   }
-  
-  editar(){
+
+  editar() {
     this.cursoService.editar(this.idEditar, this.curso).subscribe({
       next: curso => this.apresentarMensagemCadastrado(),
-      error: erro => console.log("Ocorreu um erro ao Editar o Curso:" + erro),
+      error: erro => console.log("Ocorreu um erro ao editar o curso:" + erro),      
     })
   }
 
-  private apresentarMensagemCadastrado(){
-    this.messageService.add({severity: 'success', summary: 'Sucesso', detail: 'Curso Alterado com sucesso'});
-    this.router.navigate(["/cursos"])
+  private apresentarMensagemCadastrado() {
+    this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Curso alterado com sucesso'});
+    this.router.navigate(["/cursos"]);
   }
 }

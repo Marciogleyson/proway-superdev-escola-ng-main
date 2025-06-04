@@ -1,0 +1,39 @@
+<div class="flex flex-column gap-4">
+    <p-floatlabel>
+        <input pInputText id="campo-nome" [(ngModel)]="formacao.nome" autocomplete="off" />
+        <label for="campo-nome">Nome</label>
+    </p-floatlabel>
+
+    <p-floatlabel>
+        <textarea 
+            pTextarea 
+            id="campo-descricao" 
+            name="descricao"
+            [(ngModel)]="formacao.descricao">
+        </textarea>
+    <label for="campo-descricao">Descrição</label>       
+    </p-floatlabel>
+<!-- 
+<p-floatlabel>
+    <p-calendar 
+        id="campo-duracao" 
+        name="duracao"
+        [(ngModel)]="formacao.duracao"
+        timeOnly="true" 
+        hourFormat="24" 
+        stepMinute="1">
+    </p-calendar>
+    <label for="campo-duracao">Duração</label>
+</p-floatlabel> -->
+
+
+    <p-floatlabel>
+        <p-calendar id="campo-duracao" [(ngModel)]="formacao.duracao"
+            timeOnly="true" hourFormat="24" strepMinute="1">
+        </p-calendar>
+        <label for="campo-duracao">Duração</label>
+    </p-floatlabel>
+
+    <p-button label="Cadastrar" (click)="cadastrar()"></p-button>
+</div>
+

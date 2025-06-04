@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Aluno } from '../../../models/aluno';
 import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
 import { Dialog } from 'primeng/dialog';
+import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
-import { DataHoraCustomizadaPipe } from '../../../pipes/data-hora-customizada';
+import { DataHoraCustomizadaPipe } from '../../../pipes/data-hora-customizada.pipe';
 import { DatePipe } from '@angular/common';
 import { FormatarCpfPipe } from '../../../pipes/formatar-cpf.pipe';
-import { ConfirmDialog, ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { Router } from '@angular/router';
 import { ToastModule } from 'primeng/toast';
 import { AlunoCadastro } from '../../../models/aluno-cadastro';
 import { FormsModule } from '@angular/forms';
@@ -17,35 +16,35 @@ import { InputMaskModule } from 'primeng/inputmask';
 import { DatePicker } from 'primeng/datepicker';
 import { AlunoService } from '../../../services/aluno.service';
 
-
 @Component({
   selector: 'app-alunos-lista',
-  imports: [ButtonModule,
-     Dialog,
-     InputTextModule,
-     TableModule,
-     DataHoraCustomizadaPipe,
-     FormatarCpfPipe,
-     ConfirmDialogModule,
-     ToastModule,
-     FormsModule,
-     InputMaskModule,
-     DatePicker,
-    ],
+  imports: [
+    ButtonModule, 
+    Dialog, 
+    InputTextModule, 
+    TableModule, 
+    DataHoraCustomizadaPipe, 
+    FormatarCpfPipe, 
+    ConfirmDialogModule, 
+    ToastModule, 
+    FormsModule,
+    InputMaskModule,
+    DatePicker,
+  ],
   templateUrl: './alunos-lista.component.html',
   styleUrl: './alunos-lista.component.css',
-  providers: [DataHoraCustomizadaPipe,
-     DatePipe,
-     FormatarCpfPipe,
-     MessageService,
-     ConfirmationService,
-     AlunoService,
-     
-    ]
+  providers: [
+    DataHoraCustomizadaPipe, 
+    DatePipe, 
+    FormatarCpfPipe, 
+    MessageService, 
+    ConfirmationService,
+    AlunoService,
+  ]
 })
-export class AlunosListaComponent implements OnInit {
-  alunos: Aluno [];
-  alunoCadastro: AlunoCadastro; // objeto que será utilizado na dialog(modal) para cadastra
+export class AlunosListaComponent implements OnInit{
+  alunos: Aluno[];
+  alunoCadastro: AlunoCadastro; // objeto que será utilizado na dialog(modal) para cadastrar
   dialogVisivelCadastrarEditar: boolean = false;
   dialogTituloCadastrarEditar?: string;
   idAlunoEditar?: number;
@@ -54,32 +53,30 @@ export class AlunosListaComponent implements OnInit {
   dataMaxima: Date;
 
   constructor(
-    private router: Router,
-     private confirmationService: ConfirmationService,
-      private messageService: MessageService,
-      private alunoService: AlunoService,
-    ){
-    this.alunos = [ ]
+    private confirmationService: ConfirmationService, 
+    private messageService: MessageService,
+    private alunoService: AlunoService,
+  ){
+    this.alunos = []
 
     this.alunoCadastro = new AlunoCadastro();
 
-    let dataHoraAgora = new Date(Date.now())
+    let dataHoraAgora = new Date(Date.now());
 
-    this.dataMinima = new Date(1900, 0, 1);
+    this.dataMinima = new Date(1990, 0, 1);
     this.dataMaxima = new Date(dataHoraAgora.getFullYear(), dataHoraAgora.getMonth(), dataHoraAgora.getDate(), 23, 59, 59)
   }
 
   ngOnInit(): void {
     this.carregarAlunos();
   }
-
-  
+    
   private carregarAlunos() {
     this.carregandoAlunos = true;
-    // Fazer a requisição para o back end
+    // Fazer a requisição para o back-end
     this.alunoService.obterTodos().subscribe({
       next: alunos => this.alunos = alunos,
-      error: erro => console.log("Ocorreu um eros ao carregar a lista de alunos:" + erro),
+      error: erro => console.log("Ocorreu um erro ao carregar a lista de alunos:" + erro),
       complete: () => this.carregandoAlunos = false
     });
   }
@@ -88,43 +85,41 @@ export class AlunosListaComponent implements OnInit {
     this.dialogTituloCadastrarEditar = "Cadastro de Aluno";
     this.alunoCadastro = new AlunoCadastro();
     this.idAlunoEditar = undefined;
-    this.dialogVisivelCadastrarEditar = true;
-   
-    
-  
+    this.dialogVisivelCadastrarEditar = true;    
   }
-    abrirModalEditar(aluno: Aluno){
-      this.dialogTituloCadastrarEditar = `Editar de Aluno = ${this.alunoCadastro.nome.toString()}`;
-      this.alunoCadastro = new AlunoCadastro();
-      this.alunoCadastro.nome = aluno.nome;
-      this.alunoCadastro.sobrenome = aluno.sobrenome;
-      this.alunoCadastro.cpf = aluno.cpf;
-      this.alunoCadastro.dataNascimento = new Date(aluno.dataNascimento!);
-      this.idAlunoEditar = aluno.id;
 
-      this.dialogVisivelCadastrarEditar = true;  
-   }
-       
-    confirmarParaApagar(event: Event, alunoId: number) {
-    this.confirmationService.confirm({
-        target: event.target as EventTarget,
-        message: 'Deseja Realmente Apagar?',
-        header: 'CUIDADO',
-        closable: true,
-        closeOnEscape: true,
-        icon: 'pi pi-exclamation-triangle',
-        rejectButtonProps: {
-            label: 'Cancelar',
-            severity: 'secondary',
-            outlined: true,
-        },
-        acceptButtonProps: {
-            label: 'Delete',
-            severity: 'danger'
-        },
-        accept: () => this.apagar(alunoId)
-    });
-}
+   abrirModalEditar(aluno: Aluno){
+    this.dialogTituloCadastrarEditar = `Editar Aluno - ${aluno.nome.toString()}`;
+    this.alunoCadastro = new AlunoCadastro();
+    this.alunoCadastro.nome = aluno.nome;
+    this.alunoCadastro.sobrenome = aluno.sobrenome;
+    this.alunoCadastro.cpf = aluno.cpf;
+    this.alunoCadastro.dataNascimento = new Date(aluno.dataNascimento!);
+    this.idAlunoEditar = aluno.id;
+
+    this.dialogVisivelCadastrarEditar = true;
+  }
+
+  confirmarParaApagar(event: Event, alunoId: number) {
+        this.confirmationService.confirm({
+            target: event.target as EventTarget,
+            message: 'Deseja realmente apagar?',
+            header: 'Cuidado',
+            closable: true,
+            closeOnEscape: true,
+            icon: 'pi pi-exclamation-triangle',
+            rejectButtonProps: {
+                label: 'Cancelar',
+                severity: 'secondary',
+                outlined: true,
+            },
+            acceptButtonProps: {
+                label: 'Deletar',
+                severity: 'danger'
+            },
+            accept: () => this.apagar(alunoId)
+        });
+  }
 
   private apagar(alunoId: number){
     this.alunoService.apagar(alunoId).subscribe({
@@ -134,31 +129,29 @@ export class AlunosListaComponent implements OnInit {
   }
 
   private apresentarMensagemApagado(){
-    this.messageService.add({severity: 'sucesso', summary: 'Sucesso', detail: 'Aluno removido com sucesso'});
+    this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Aluno removido com sucesso' });
     this.carregarAlunos();
   }
 
   cadastrar(){
     this.alunoService.cadastrar(this.alunoCadastro).subscribe({
-      next: aluno =>this.apresentarMensagemCadastrado(),
-      error: erro => console.log("Ocorreu um erro ao cadastrar o aluno" + erro),
+      next: aluno => this.apresentarMensagemCadastrado(),
+      error: erro => console.log(`Ocorreu um erro ao cadastrar o aluno:" ${erro}`),
     })
   }
 
- 
-  apresentarMensagemCadastrado(){
-   
-    this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Aluno Cadastrado com Sucesso' });
+  private apresentarMensagemCadastrado(){
+    this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Aluno Cadastrado com sucesso' });
     this.dialogVisivelCadastrarEditar = false
     this.alunoCadastro = new AlunoCadastro();
-    this.carregarAlunos();
+    this.carregarAlunos();      
   }
 
   salvar(){
-    if (this.idAlunoEditar == undefined)
+    if(this.idAlunoEditar === undefined)
       this.cadastrar();
     else
-     this.editar();
+      this.editar();
   }
 
   private editar(){
@@ -166,15 +159,13 @@ export class AlunosListaComponent implements OnInit {
       next: aluno => this.apresentarMensagemEditado(),
       error: erro => console.log("Ocorreu um erro ao editar o aluno:" + erro),
     })
-
   }
 
   private apresentarMensagemEditado(){
-      this.messageService.add({ severity: 'sucess', summary: 'Sucesso', detail: 'Aluno alterado com sucesso'});
-      this.dialogVisivelCadastrarEditar = false
-      this.idAlunoEditar = undefined;
-      this.alunoCadastro = new AlunoCadastro();
-      this.carregarAlunos();
-    }
+    this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Aluno alterado com sucesso' });
+    this.dialogVisivelCadastrarEditar = false
+    this.idAlunoEditar = undefined;
+    this.alunoCadastro = new AlunoCadastro();
+    this.carregarAlunos();
   }
-
+}
