@@ -83,6 +83,6 @@ export class CursosListaComponent implements OnInit {
       summary: 'Sucesso',
       detail: 'Curso removido com sucesso',
     });
-    this.carregarCursos
+    this.carregarCursos();
   }
 }
