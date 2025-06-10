@@ -10,6 +10,8 @@ import { InputMaskModule } from 'primeng/inputmask';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { Curso } from '../../../models/curso';
+import { Matricula, MatriculaCadastrar } from '../../../models/matricula';
+import { TableModule } from 'primeng/table';
 
 @Component({
   selector: 'app-curso-editar',
@@ -20,6 +22,7 @@ import { Curso } from '../../../models/curso';
     InputMaskModule,
     ButtonModule,
     ToastModule,
+    TableModule,
   ],
   providers: [MessageService],
   templateUrl: './curso-editar.component.html',
@@ -28,6 +31,9 @@ import { Curso } from '../../../models/curso';
 export class CursoEditarComponent {
 curso: CursoEditar;
   idEditar: number;
+  matriculaCadastrar: MatriculaCadastrar;
+  modalCadastrrVisible: boolean;
+  matriculas: Matricula[];
 
   constructor(
     private router: Router,
@@ -37,6 +43,11 @@ curso: CursoEditar;
   ){
     this.curso = new CursoEditar();
     this.idEditar = parseInt(this.activatedRoute.snapshot.paramMap.get("id")!.toString());
+
+    this.matriculaCadastrar = new MatriculaCadastrar();
+    this.modalCadastrrVisible = false;
+    this.matriculas = [];
+
   }
 
   ngOnInit(){
@@ -61,5 +72,8 @@ curso: CursoEditar;
   private apresentarMensagemCadastrado() {
     this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Curso alterado com sucesso'});
     this.router.navigate(["/cursos"]);
+  }
+  abrirModalRegistrarMatricula(){
+
   }
 }
